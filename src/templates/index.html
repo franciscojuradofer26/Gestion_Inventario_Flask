@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Inventario</title>
+</head>
+<body>
+    <header class="d-flex align-items-center justify-content-between px-4 py-3">
+
+        <div style="padding-left: 20px;">
+            <h1 id="Bienvenida_usuario" class="mb-0" style="font-size: 2rem;">Gestión de Inventario</h1>
+        </div>
+
+        <div class="d-flex align-items-center" style="gap: 10px;">
+            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" 
+                style="width: 50px; height: 50px; font-size: 1.5rem;">
+                {{ session['usuario'][0] | upper }}
+            </div>
+            <p id="nombre_usuario" class="mb-0 fw-bold">{{ session['usuario'] }}</p>
+        </div>
+
+        <a href="/logout" class="btn btn-outline-danger">Cerrar Sesión</a>
+    </header>
+
+    <div class="px-4 py-3">
+        <input type="text" id="buscador" onkeyup="filtrarProductos()" 
+               class="form-control bg-dark border-info" 
+               style="color: #16D9D9;" 
+               placeholder="🔎 Buscar producto por nombre...">
+    </div>
+
+    <div class="px-4 py-2 mb-4">
+        <form action="/nuevo" method="POST" class="d-flex gap-2">
+            <input type="text" name="nombre" class="form-control bg-dark border-info text-info" placeholder="Nombre del nuevo producto" required>
+            <input type="number" name="cantidad" class="form-control bg-dark border-info text-info" placeholder="Stock" style="width: 150px;" required>
+            <button type="submit" class="btn btn-info font-weight-bold">Añadir</button>
+        </form>
+    </div>
+
+    <div id="contenedor-productos">
+        {% for producto in productos %}
+        <div class="productos_inventario fila-producto">
+            <p class="nombre-producto">{{ producto[1] }}</p>
+            <div class="d-flex align-items-center gap-3">
+                <p>Stock: {{ producto[2] }}</p>
+                <a href="/eliminar/{{ producto[0] }}" class="btn btn-sm btn-danger">X</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function filtrarProductos() {
+            // 1. Obtenemos lo que el usuario ha escrito y lo pasamos a minúsculas
+            let textoBusqueda = document.getElementById("buscador").value.toLowerCase();
+            // 2. Obtenemos todas las cajas de productos
+            let filas = document.getElementsByClassName("fila-producto");
+
+            // 3. Recorremos todas las cajas una por una
+            for (let i = 0; i < filas.length; i++) {
+                // Sacamos el texto del nombre del producto
+                let nombreProducto = filas[i].getElementsByClassName("nombre-producto")[0].innerText.toLowerCase();
+                
+                // Si el nombre incluye el texto de búsqueda, lo mostramos (flex), si no, lo ocultamos (none)
+                if (nombreProducto.includes(textoBusqueda)) {
+                    filas[i].style.display = "flex"; 
+                } else {
+                    filas[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+</body>
+</html>
+

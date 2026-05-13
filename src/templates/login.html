@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Login - Gestión de Inventario</title>
+    <style>
+        /* Estilos específicos para el formulario de login */
+        .login-container {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .card-login {
+            background-color: #2b3030;
+            border: 2px solid #16D9D9;
+            border-radius: 15px;
+            padding: 30px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 0 15px rgba(22, 217, 217, 0.2);
+        }
+        .form-control {
+            background-color: #202424;
+            border: 1px solid #16D9D9;
+            color: #16D9D9;
+        }
+        .form-control:focus {
+            background-color: #202424;
+            color: #16D9D9;
+            border-color: #16D9D9;
+            box-shadow: 0 0 10px rgba(22, 217, 217, 0.5);
+        }
+        .btn-neon {
+            background-color: transparent;
+            color: #16D9D9;
+            border: 2px solid #16D9D9;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .btn-neon:hover {
+            background-color: #16D9D9;
+            color: #202424;
+            box-shadow: 0 0 20px #16D9D9;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <div class="card-login">
+            <h2 class="text-center mb-4" style="color: #16D9D9;">Iniciar Sesión</h2>
+
+            {% if error %}
+            <div class="alert alert-danger bg-dark text-danger border-danger py-2" role="alert">
+                {{ error }}
+            </div>
+            {% endif %}
+
+            <form action="/login" method="POST">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Usuario</label>
+                    <input type="text" name="username" class="form-control" id="username" required>
+                </div>
+                <div class="mb-4">
+                    <label for="password" class="form-label">Contraseña</label>
+                    <input type="password" name="password" class="form-control" id="password" required>
+                </div>
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-neon">Entrar al Sistema</button>
+                </div>
+            </form>
+            
+            <p class="text-center mt-3 mb-0" style="font-size: 0.8rem; color: #555;">
+                Acceso restringido a personal autorizado
+            </p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

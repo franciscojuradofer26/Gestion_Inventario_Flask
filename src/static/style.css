@@ -1,0 +1,49 @@
+body {
+    background-color: #202424;
+    color: #16D9D9;
+    margin: 0; /* Elimina márgenes del navegador */
+}
+
+header {
+    display: flex;
+    align-items: center; 
+    /* Alinea y distribuye los bloques */
+    justify-content: space-between; 
+    /* Espaciado interno para que nada toque los bordes de la pantalla */
+    padding: 20px 40px; 
+}
+
+#Bienvenida_usuario {
+    font-size: 35px;
+    margin: 0; /* Elimina margen por defecto de Bootstrap */
+}
+
+/* Contenedor de la "imagen" del perfil del usuario */
+.user-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Espacio fijo entre la imagen y el nombre */
+}
+
+#nombre_usuario {
+    margin: 0; /* Elimina márgenes para centrar el bloque */
+    font-weight: bold;
+}
+
+/* Da una estructura fija a todos los bloques de productos de la BBDD */
+.productos_inventario {
+    border: 3.5px solid #16D9D9;
+    border-radius: 7.5px;
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 25px;
+    margin: 20px 40px;
+}
+
+/* Elimina márgenes por defecto de los bloques p */
+.productos_inventario p {
+    margin:0px;
+}
